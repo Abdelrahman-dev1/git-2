@@ -1,0 +1,24 @@
+# اسم الـ Workflow
+name: Node.js CI  # الاسم اللي هيظهرلك في تبويب Actions
+
+# الحدث اللي هيشغّل الـ Workflow
+on:
+  push:               # أي Push يحصل على الفرع المحدد
+    branches: [main]  # هنا نحدد الفرع الرئيسي main
+  pull_request:       # أي Pull Request على الفرع المحدد
+    branches: [main]
+
+# تعريف الـ Jobs
+jobs:
+  build:               # اسم الـ Job
+    runs-on: ubuntu-latest  # نوع الـ Runner (الجهاز اللي هينفذ الخطوات)
+
+    steps:             # الخطوات اللي هتنفذ داخل الـ Job
+      - name: Checkout code        # خطوة لتجهيز الكود من الريبو
+        uses: actions/checkout@v3 # Action جاهز من GitHub يقوم بعمل Checkout
+
+      - name: Install dependencies   # خطوة تثبيت المكتبات
+        run: npm install             # أمر لتثبيت كل الـ dependencies
+
+      - name: Run tests             # خطوة لتشغيل الاختبارات
+        run: npm test               # الأمر اللي بيشغّل الاختبارات المحددة في package.json
